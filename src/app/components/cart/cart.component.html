@@ -1,0 +1,67 @@
+@if ( clinetData ) {
+    <section class="w-75 bg-body-tertiary p-3 mx-auto my-3 rounded rounded-1" >
+        <h1 class="fw-bold h2 ">Shop cart</h1>
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="h5 text-main">total cart price : {{clinetData.totalCartPrice}} EGP</h3>
+            @if (clinetData.products.length != 0) {
+                <div class="remove d-flex justify-content-start align-items-center gap-1">
+                    <i class="fa-solid fa-trash-can"></i>
+                    <span (click)="clearCart()">Clear cart</span>
+                </div>
+            }
+        </div>      
+        <div class="container my-5">
+            @for (product of clinetData.products; track product.product._id) {
+                <div class="row my-3 d-flex justify-content-center align-items-center">
+                    <div class="col-2">
+                        <div class="img-bx">
+                            <img src={{product.product.imageCover}} class="w-100">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="product-tooltip">
+                            <h1 class="h5" (mouseenter)="showFullTitleMethod()" (mouseleave)="showFullTitleMethod()">{{product.product.title.split(' ').slice(0,8).join(" ")}}</h1>
+                        </div>
+                        <h3 class="h5 text-main">price : {{product.price}} EGP</h3>
+                        <div class="remove d-flex justify-content-start align-items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span (click)="removeCartItem(product.product.id)">remove</span>
+                        </div>
+                    </div>
+                    <div class="col-2  d-flex justify-content-start align-items-center gap-2 h4 text-main">
+                        <span class="in-de fw-bold cursor-pointer p-1 border border-1" (click)="updateCart(product.product.id , product.count+1)">+</span>
+                        <span>{{product.count}}</span>
+                        @if( product.count > 1 ){
+                            <span class="in-de fw-bold cursor-pointer p-1 border border-1" (click)="updateCart(product.product.id , product.count-1)">-</span>
+                        }
+                    </div>
+                </div>
+                <hr>
+            }
+            @if(clinetData.products.length){
+                <div class="text-center">
+                    <button class="btn btn-main mx-auto w-50 " [routerLink]="['/main/checkout', clinetData._id ]">Check out</button>
+                </div>
+            }
+        </div>
+        @if(clinetData.products.length == 0){
+            <hr>
+            <div class="d-flex justify-content-center align-items-center w-100">
+                <p>Your cart is empty</p>
+            </div>
+        }
+    </section>
+    
+}
+@else {
+    <section>
+        <div class="container w-75 my-5 mx-auto">
+            @for (item of [1,2,3,4,5]; track $index) {
+                <div class="row">
+                    <div class="col-2  placeholder"></div>
+                    <div class="col-9  placeholder"></div>
+                </div>
+            }
+        </div>
+    </section>
+}

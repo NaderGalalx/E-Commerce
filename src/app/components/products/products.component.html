@@ -1,0 +1,90 @@
+<!-- products   structure -->
+@if ( productsData ) {
+    <section class="p-4">
+        <div class="search w-50 mx-auto">
+            @if(searchItem){
+                <i class="fa-solid fa-xmark" (click)="emptySearch()"></i>
+            }
+            <input type="text" placeholder="Search..." class="search-input w-100 m-4" [(ngModel)]="searchItem" (input)="searchProducts()">
+        </div>
+        @if( !searchItem ){
+            <div class="container">
+                <div class="row">
+                    @for (product of productsData ; track product._id) {
+                        <div class="col-lg-2 col-md-3 col-sm-6 p-2 cursor-pointer" >
+                            <div class="product p-2 rounded">
+                                <div  [routerLink]="['/main/productDetails' , product.id ]">
+                                    <div class="product-img">
+                                        <img [src]="product.imageCover" class="w-100 rounded" [alt]="product.title">
+                                    </div>
+                                    <h2 class="fs-6 text-main my-2" >{{ product.category.name }}</h2>
+                                    <h1 class="fs-5">{{ product.title.split(" ").splice(0,2).join(" ") }}</h1>
+                                    <div class="small">
+                                        @for (star of [1,2,3,4,5].slice(0,product.ratingsAverage) ; track $index) {
+                                            <span><i class="fa-solid fa-star rating-color"></i></span>
+                                        }
+                                        @if( product.ratingsAverage%1 != 0 ){<i class="fa-solid fa-star-half-stroke rating-color"></i>}
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bolder">{{ product.price }} EGP</span>
+                                    </div>
+                                </div>
+                                <button class="btn-main w-100" (click)="addToCart(product.id)">Add to cart +</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                @if( productsData ){
+                    <div class="pages m-2 d-flex justify-content-center align-items-center gap-1 cursor-pointer">
+                        @for( page of [1,2,3,4,5,6,7,8,9,10].slice(0,pagesNo); track page ){
+                            <span (click)="getAndDisplayProducts( page )" [class.current-page]="page === currentPage">{{ page }}</span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        @else if( searchItem.trim() ){
+            <div class="container">
+                <div class="row">
+                    @for (product of filterdData ; track product._id) {
+                        <div class="col-lg-2 col-md-3 col-sm-6 p-2 cursor-pointer" >
+                            <div class="product p-2 rounded">
+                                <div  [routerLink]="['/main/productDetails' , product.id ]">
+                                    <div class="product-img">
+                                        <img [src]="product.imageCover" class="w-100 rounded" [alt]="product.title">
+                                    </div>
+                                    <h2 class="fs-6 text-main my-2" >{{ product.category.name }}</h2>
+                                    <h1 class="fs-5">{{ product.title.split(" ").splice(0,2).join(" ") }}</h1>
+                                    <div class="small">
+                                        @for (star of [1,2,3,4,5].slice(0,product.ratingsAverage) ; track $index) {
+                                            <span><i class="fa-solid fa-star rating-color"></i></span>
+                                        }
+                                        @if( product.ratingsAverage%1 != 0 ){<i class="fa-solid fa-star-half-stroke rating-color"></i>}
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bolder">{{ product.price }} EGP</span>
+                                    </div>
+                                </div>
+                                <button class="btn-main w-100" (click)="addToCart(product.id)">Add to cart +</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </section>
+}
+@else{
+<!-- products placeholder -->
+<section class="p-4">
+    <div class="container">
+        <div class="row">
+            @for (item of placeholderArr; track $index) {
+                <div class="placeholder col-2 p-2"></div>
+            }
+        </div>
+    </div>
+</section>
+}
+
+

@@ -1,0 +1,34 @@
+<!-- products   structure -->
+ 
+<section class="p-4">
+    <div class="container">
+        <div class="intro p-2 mb-3">
+            <h2 class="fw-bold my-2">Explore Our Trusted Brands</h2>
+            <p>At our store, we take pride in offering a wide range of carefully selected brands that
+                cater to every lifestyle and need. From internationally renowned names to beloved local favorites, our
+                collection brings you the best in quality, style, and innovation.</p>
+            <p>Whether you're upgrading your wardrobe with the latest fashion labels, investing in high-performance
+                electronics, or shopping for everyday essentials, our diverse brand lineup ensures you always have
+                access to products you can trust.</p>
+            <p>We’re committed to delivering an exceptional shopping experience, where reliability meets choice, and
+                every item reflects the highest standards. Browse through our brand partners and find the perfect match
+                for your taste and expectations.</p>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="row w-75">
+                @for (product of brandsData ; track product._id) {
+                <div class="col-lg-2 col-md-3 col-sm-6 p-2">
+                    <div class="product p-2 rounded">
+                        <div>
+                            <div class="product-img">
+                                <img [src]="product.image" class="w-100 rounded" [alt]="product.slug">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

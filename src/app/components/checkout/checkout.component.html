@@ -1,0 +1,26 @@
+<section class="w-50 bg-body-tertiary p-3 mx-auto my-3 rounded rounded-1">
+    <div class="container">
+        <form [formGroup]="shippingAddress" (ngSubmit)="payOrder()">
+            <div>
+                <label for="details" class="my-1"><span class="text-danger">*</span>Details</label>
+                <textarea formControlName="details" id="details" class="form-control p-1" rows="1"></textarea>
+            </div>
+            <div>
+                <label for="phone" class="my-1"><span class="text-danger">*</span>Phone</label>
+                <input type="tel" formControlName="phone" id="phone" class="form-control p-1" rows="1">
+            </div>
+            <div>
+                <label for="city" class="my-1"><span class="text-danger">*</span>City</label>
+                <input type="tel" formControlName="city" id="city" class="form-control p-1" rows="1">
+            </div>
+            @if(errors){
+                <div class="alert alert-warning p-1 my-2">
+                    <p>Check your Inputs !</p>
+                </div>
+            }
+            <button class="btn-main mx-auto d-block w-75 my-3"  >Payment
+                @if( loading ){ <span><i class="fa-solid fa-spinner fa-spin-pulse"></i></span> }
+            </button>
+        </form>
+    </div>
+</section>

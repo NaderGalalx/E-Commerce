@@ -1,0 +1,55 @@
+.in-de{
+    transition: .3s;
+}
+.in-de:hover{
+    border: 1px solid var(--main-color) !important;
+}
+
+.remove span:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+/* Tooltip */
+
+.product-tooltip{
+    position: relative;
+    /* cursor: pointer; */
+}
+.my-tooltip{
+    display: none; 
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #ffffff;
+    color: #0f0f0f;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #0f0f0fb0;
+    z-index: 1000;
+    font-size: 15px;
+    cursor: text; 
+}
+.product-tooltip:hover .my-tooltip{
+    display: block;
+}
+
+
+
+
+
+
+/* Placeholder style */
+
+.placeholder{
+    height: 200px;
+    margin: 10px;
+    border-radius: 5px;
+    animation: fade .8s infinite linear;
+}
+@keyframes fade{
+    0%{background-color: rgb(202, 202, 202);}
+    50%{background-color: rgb(177, 177, 177);}
+    100%{background-color: rgb(202, 202, 202);}
+}

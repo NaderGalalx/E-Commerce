@@ -1,0 +1,18 @@
+.login-body{
+    padding: 90px;
+}
+
+#Forget:hover{
+    opacity: 1 !important;
+}
+
+.fa-eye{
+    top: 35px;
+    right: 40px;
+    color: rgb(167, 167, 167);
+    cursor: pointer;
+}
+.fa-eye:hover{
+    color: rgb(184, 184, 184);
+    
+}

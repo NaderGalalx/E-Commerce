@@ -1,0 +1,83 @@
+<!-- Main slider -->
+ <div class="main-slider container-fluid g-0 ">
+    <div class="row g-0 ">
+        <div class="col-12 col-md-10 main-slider-lft m-0">
+            <owl-carousel-o [options]="mainOptions">
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-2.jpeg">
+                </ng-template>   
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-image-2.jpeg">
+                </ng-template>   
+                <ng-template carouselSlide>
+                    <img src="./assets/images/slider-image-3.jpeg">
+                </ng-template>   
+            </owl-carousel-o>
+        </div>
+        <div class="col-12 col-md-2 main-slider-right overflow-hidden m-0">
+            <div class="overflow-hidden"><img src="./assets/images/grocery-banner.png" ></div>
+            <div class="overflow-hidden"><img src="./assets/images/grocery-banner-2.jpeg" ></div>
+        </div>
+    </div>
+ </div>
+<!-- categories Slider -->
+@if( catData ){
+    <section class="mb-3 position-relative my-2">
+        <owl-carousel-o [options]="cateOptions">
+            @for( category of catData ; track category._id ){
+                <ng-template carouselSlide id="carsoul">
+                    <div class="overley-layer">
+                        <h2 class="h5">{{ category.name }}</h2>
+                    </div>
+                    <img id="carsoul-img" [src]="category.image" [alt]="category.slug" class="w-100">
+                  </ng-template>
+            }
+          </owl-carousel-o>
+    </section>
+}
+@if( cateLoading ){
+    <section class="catePlaceholder"></section>
+}
+<!-- Headings -->
+@if ( catData ) {<div class="w-100 text-center my-4">
+    <i class="fa-solid fa-minus fa-flip fa-heading fs-4"></i>
+    <h1 class="fw-bolder fa-4x fa-heading">Fresh Cart</h1>
+    <p class="bold text-body-secondary">Shop Fresh, <span class="fw-bolder">Live Better!</span></p>
+</div>}
+<!-- products   structure -->
+<section class="p-4">
+    <div class="container">
+        <div class="row">
+            @for (product of productsData ; track product._id) {
+                <div class="col-lg-2 col-md-3 col-sm-6 p-2 cursor-pointer" >
+                    <div class="product p-2 rounded">
+                        <div  [routerLink]="['/main/productDetails' , product.id ]">
+                            <div class="product-img">
+                                <img [src]="product.imageCover" class="w-100 rounded" [alt]="product.title">
+                            </div>
+                            <h2 class="fs-6 text-main my-2" >{{ product.category.name }}</h2>
+                            <h1 class="fs-5">{{ product.title.split(" ").splice(0,2).join(" ") }}</h1>
+                            <div class="small">
+                                @for (star of [1,2,3,4,5].slice(0,product.ratingsAverage) ; track $index) {
+                                    <span><i class="fa-solid fa-star rating-color"></i></span>
+                                }
+                                @if( product.ratingsAverage%1 != 0 ){<i class="fa-solid fa-star-half-stroke rating-color"></i>}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bolder">{{ product.price }} EGP</span>
+                            </div>
+                        </div>
+                        <button class="btn-main w-100" (click)="addToCart(product._id)">Add to cart +</button>
+                    </div>
+                </div>
+            }
+        </div>
+        @if( productsData ){
+            <div class="pages m-2 d-flex justify-content-center align-items-center gap-1 cursor-pointer">
+                @for( page of numberOfPages; track page ){
+                    <span (click)="getAndDisplayProducts( page )" [class.current-page]="page === currentPage">{{ page }}</span>
+                }
+            </div>
+        }
+    </div>
+</section>
